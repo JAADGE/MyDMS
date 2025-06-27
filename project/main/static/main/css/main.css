@@ -1,16 +1,49 @@
 body{
-    background-color: rgb(217, 221, 223);
-}
-.logo{
-    font-size: 26pt;
-    font-style: normal;
+    background-color: rgb(82, 80, 81);
 }
 aside{
-    padding: 0.5%;
+    padding: 0.8%;
+    height: 15vh;
+    width: 100vh;
+    background-color: rgb(126, 117, 117);
+    color: rgb(0, 0, 0);
+    border-bottom: 3px solid rgb(0, 0, 0);
+}
+aside .logopic {
+    width: 40px;
     float: left;
-    height: 100vh;
+    padding: 8px;
+}
+aside .logo{
+    font-size: 22pt;
+    margin: 2%;
+    border-bottom: 3pt solid black;
+    font-weight: bold;
+}
+aside h3{
+    margin-left: 35px;
+    margin-top: 40px;
+    font-size: 30px;
+    font-weight: bold;
+
+}
+aside .aside_li {
+    text-decoration: none;
+    font-size: larger;
+    color: rgb(73, 0, 0);
+    display: block;
+    margin-top: 20px;
+    font-weight: bolder;
+    transition: transform 2s ease;
+}
+
+aside .asideimg{
+    margin: 5%;
     width: 14%;
-    background-color: rgb(207, 182, 182);
-    color: rgb(1, 12, 12);
-    border-right: 3px solid rgb(0, 0, 0);
+    margin-bottom: 10px;
+}
+aside ul li:hover, aside ul a:hover{
+    color: rgb(100, 4, 4);
+    text-decoration: none;
+    transform: scale(1.03);
 }

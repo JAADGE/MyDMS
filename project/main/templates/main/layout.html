@@ -11,14 +11,15 @@
         <link rel="stylesheet" href="{% static 'main/css/main.css' %}">
 </head>
 <body>
+    
     <aside>
-        <img class="logo" src="{% static 'main/img/file-regular.png' %}"> 
+        <img class="logopic" src="{% static 'main/img/file-regular.png' %}"> 
         <span class="logo"> SimpleDMS </span>
         <h3>Навигация</h3>
         <ul>
-            <a href="/"><li><i class="fa-solid fa-house"></i>Главная</li></a>
-            <a href="about"><li>О нас</li></a>
-            <a href=""><li>пропуск</li></a>
+            <a href="{%url 'home'%}"><li class = "aside_li"><img class="asideimg" src="{% static 'main/img/house-solid.svg' %}">Главная</li></a>
+            <a href="{%url 'about'%}"><li class = "aside_li"><img class="asideimg" src="{% static 'main/img/house-solid.svg' %}">О нас</li></a>
+            <a href=""><li class = "aside_li"><img class="asideimg" src="{% static 'main/img/house-solid.svg' %}">пропуск</li></a>
         </ul>
     </aside>
     <main>
