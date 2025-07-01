@@ -1,0 +1,16 @@
+{% extends "main/layout.html" %}
+
+{% block title %}
+Форма по добавлению
+{% endblock %} 
+
+{% block content %}
+    <div align='center' enctype="multipart/form-data">
+        <form method="post"  enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="submit-btn" type="submit">Отправить</button><br>
+        </form>
+        <a href="{%url 'document_list'%}"><button class="submit-btn" type="submit">Список документов</button>
+    </div>
+{% endblock %}
