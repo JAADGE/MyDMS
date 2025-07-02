@@ -1,8 +1,10 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404
 from django.contrib import messages
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
-from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import user_passes_test
 from .models import Document
 from .forms import DocumentForm
 from .forms import DocumentStatusForm
@@ -27,20 +29,15 @@ def create(request):
     return render(request, 'documents/create.html', {'form': form})
 
 
-def document_list(request):
-    documents = Document.objects.all()
-    return render(request, 'documents/document_list.html', {'documents': documents})
-
-
-@login_required
-def document_list(request):
-    documents = Document.objects.all()
-    return render(request, 'documents/document_list.html', {'documents': documents, 'status_form': DocumentStatusForm()})
+# @login_required
+# def document_list(request):
+#     documents = Document.objects.all()
+#     return render(request, 'documents/document_list.html', {'documents': documents, 'status_form': DocumentStatusForm()})
 
 
 
 @login_required
-@user_passes_test(lambda u: u.is_staff or is_moderator(u))
+@user_passes_test(lambda u: u.is_staff or u.is_moderator(u))
 def update_status(request, document_id):
     document = get_object_or_404(Document, id=document_id)
     if request.method == 'POST':
@@ -51,9 +48,15 @@ def update_status(request, document_id):
 
 
 @login_required
-@user_passes_test(lambda u: u.is_staff or is_moderator(u))
+@user_passes_test(lambda u: u.is_staff or u.is_moderator(u))
 def delete_document(request, document_id):
     document = get_object_or_404(Document, id=document_id)
     if request.method == 'POST':
         document.delete()
     return redirect('document_list')
+
+
+@login_required
+def document_list(request):
+    documents = Document.objects.all()
+    return render(request, 'documents/document_list.html', {'documents': documents})

@@ -10,20 +10,21 @@
         <ul>
             {% for document in documents %}
                 <li>
-                    <a href="{{ document.file.url }}">{{ document.title }}</a>
-                    <span>Status: {{ document.status }}</span>
+                    <p href="{{ document.file.url }}">{{ document.title }} Status: {{ document.status }}</p>
 
-                    {% if perms.your_app.change_document or perms.your_app.delete_document %}
-                    <form method="post" action="{% url 'update_status' document.id %}" style="display: inline;">
+                    <form method="post" action="{% url 'update_status' document.id %}">
                         {% csrf_token %}
-                        {{ status_form.status }}
+                        <select name="status">
+                            <option value="accepted" {% if document.status == 'accepted' %}selected{% endif %}>Accepted</option>
+                            <option value="rejected" {% if document.status == 'rejected' %}selected{% endif %}>Rejected</option>
+                            <option value="deleted" {% if document.status == 'deleted' %}selected{% endif %}>Deleted</option>
+                        </select>
                         <button type="submit">Update Status</button>
                     </form>
-                    <form method="post" action="{% url 'delete_document' document.id %}" style="display: inline;">
+                    <form method="post" action="{% url 'delete_document' document.id %}">
                         {% csrf_token %}
                         <button type="submit">Delete</button>
                     </form>
-                {% endif %}
                 </li>
             {% endfor %}
         </ul>
