@@ -14,11 +14,16 @@
                     <span>Status: {{ document.status }}</span>
 
                     {% if perms.your_app.change_document or perms.your_app.delete_document %}
-                        <form method="post" action="{% url 'delete_document' document.id %}" style="display: inline;">
-                            {% csrf_token %}
-                            <button type="submit">Delete</button>
-                        </form>
-                    {% endif %}
+                    <form method="post" action="{% url 'update_status' document.id %}" style="display: inline;">
+                        {% csrf_token %}
+                        {{ status_form.status }}
+                        <button type="submit">Update Status</button>
+                    </form>
+                    <form method="post" action="{% url 'delete_document' document.id %}" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit">Delete</button>
+                    </form>
+                {% endif %}
                 </li>
             {% endfor %}
         </ul>

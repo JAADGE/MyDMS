@@ -1,11 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib import auth
 
 class Document(models.Model):
     STATUS_CHOICES = [
         ('accepted', 'утвержден'),
         ('rejected', 'Не утвержден'),
-        ('deleted', 'удален'),
     ]
 
     title = models.CharField(max_length=200)
