@@ -5,7 +5,13 @@
 {% endblock %} 
 
 {% block content %}
-    <div class="featuers">
-   
-    </div>
+<div align='center'>
+    <p><h2 color='black'>Добро пожаловать на главную страницу Выпускной Курсовой Работы Зиновьева Александра Ивановича!<br> По теме "Автоматизация электронного документооборота".</h2></p>    
+    {% if user.is_authenticated %}
+        <p><h2>Вы вошли как: {{ user.username }} </h2> <a href="{% url 'logout' %}">Выйти</a></p>
+    {% else %}
+    <h2>Чтобы начать работу авторизуйтесь:</h2>
+        <a href="{% url 'login' %}">Войти</a> 
+    {% endif %}
+</div>
 {% endblock %}
