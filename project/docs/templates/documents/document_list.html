@@ -10,21 +10,22 @@
         <ul>
             {% for document in documents %}
                 <li>
-                    <p href="{{ document.file.url }}">{{ document.title }} Status: {{ document.status }}</p>
-
-                    <form method="post" action="{% url 'update_status' document.id %}">
-                        {% csrf_token %}
-                        <select name="status">
-                            <option value="accepted" {% if document.status == 'accepted' %}selected{% endif %}>Accepted</option>
-                            <option value="rejected" {% if document.status == 'rejected' %}selected{% endif %}>Rejected</option>
-                            <option value="deleted" {% if document.status == 'deleted' %}selected{% endif %}>Deleted</option>
-                        </select>
-                        <button type="submit">Update Status</button>
-                    </form>
-                    <form method="post" action="{% url 'delete_document' document.id %}">
-                        {% csrf_token %}
-                        <button type="submit">Delete</button>
-                    </form>
+                    <p href="{{ document.file.url }}"> Название:{{ document.title }} Статус: {{ document.status }}</p>
+                    <a href="{% url 'download_document' document.id %}">Скачать документ</a>
+                    {% if request.user.is_staff or request.user.moderator|yesno:"False,True" %}
+                        <form method="post" action="{% url 'update_status' document.id %}">
+                            {% csrf_token %}
+                            <select name="status">
+                                <option value="accepted" {% if document.status == 'accepted' %}selected{% endif %}>утвердить</option>
+                                <option value="rejected" {% if document.status == 'rejected' %}selected{% endif %}>Отклонить</option>
+                            </select>
+                            <button type="submit">Обновить статус</button>
+                        </form>
+                        <form method="post" action="{% url 'delete_document' document.id %}">
+                            {% csrf_token %}
+                            <button type="submit">Удалить файл</button>
+                        </form>
+                    {% endif %}
                 </li>
             {% endfor %}
         </ul>

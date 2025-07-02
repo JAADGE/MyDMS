@@ -21,4 +21,4 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    return redirect('login')  # Перенаправление на страницу входа
+    return redirect('login')

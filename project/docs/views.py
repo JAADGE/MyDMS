@@ -8,11 +8,11 @@ from django.contrib.auth.decorators import user_passes_test
 from .models import Document
 from .forms import DocumentForm
 from .forms import DocumentStatusForm
-from . import forms
+from django.http import FileResponse
 
 
 def is_moderator(user):
-    return user.groups.filter(name='moderators' or 'Moderators').exists()
+    return user.groups.filter(name='moderators').exists()
 
 
 def docs_home(request):
@@ -29,15 +29,19 @@ def create(request):
     return render(request, 'documents/create.html', {'form': form})
 
 
-# @login_required
-# def document_list(request):
-#     documents = Document.objects.all()
-#     return render(request, 'documents/document_list.html', {'documents': documents, 'status_form': DocumentStatusForm()})
+@login_required
+def download_document(request, document_id):
+    document = get_object_or_404(Document, id=document_id)
+
+
+    file = open(document.file.path, 'rb')
+    response = FileResponse(file, as_attachment=True)
+    return response
 
 
 
 @login_required
-@user_passes_test(lambda u: u.is_staff or u.is_moderator(u))
+@user_passes_test(lambda u: u.is_staff or is_moderator(u))
 def update_status(request, document_id):
     document = get_object_or_404(Document, id=document_id)
     if request.method == 'POST':
@@ -48,7 +52,7 @@ def update_status(request, document_id):
 
 
 @login_required
-@user_passes_test(lambda u: u.is_staff or u.is_moderator(u))
+@user_passes_test(lambda u: u.is_staff or is_moderator(u))
 def delete_document(request, document_id):
     document = get_object_or_404(Document, id=document_id)
     if request.method == 'POST':

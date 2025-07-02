@@ -14,12 +14,12 @@
 <body>
     <header>
         <ul>
-            <a href="{%url 'home'%}"><li>Главная</li></a>       
+            <a class='header_a' href="{%url 'home'%}"><li>Главная</li></a>       
     {% if user.is_authenticated %}
-        <a href="{%url 'docs'%}"><li>Работа с документами</li></a>
-        <li> <a href="{% url 'logout' %}"> Выйти</a></li>
+        <a class='header_a' href="{%url 'docs'%}"><li>Работа с документами</li></a>
+        <li> <a class='header_a' href="{% url 'logout' %}"> Выйти</a></li>
     {% else %}
-        <a href="{% url 'login' %}">Войти</a> 
+        <a class='header_a' href="{% url 'login' %}">Войти</a> 
     {% endif %}   
         </ul>
     </header>

@@ -4,8 +4,8 @@ from django.contrib import auth
 
 class Document(models.Model):
     STATUS_CHOICES = [
-        ('accepted', 'утвержден'),
-        ('rejected', 'Не утвержден'),
+        ('accepted', 'Утвердить'),
+        ('rejected', 'Отклонить'),
     ]
 
     title = models.CharField(max_length=200)
