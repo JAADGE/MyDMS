@@ -5,15 +5,27 @@
 {% endblock %} 
 
 {% block content %}
-    <div>
-        <h1>Загруженные документы:</h1>
+    <div align='left'>
+        <h2>Загруженные документы:</h2>
         <ul>
             {% for document in documents %}
                 <li>
                     <a href="{{ document.file.url }}">{{ document.title }}</a>
-                ({{ document.uploaded_at|date:"Y-m-d H:i" }})
+                    <span>Status: {{ document.status }}</span>
+
+                    {% if perms.your_app.change_document or perms.your_app.delete_document %}
+                        <form method="post" action="{% url 'delete_document' document.id %}" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit">Delete</button>
+                        </form>
+                    {% endif %}
                 </li>
             {% endfor %}
         </ul>
     </div>
 {% endblock %}
+<style>
+    ul {
+      font-size: 24px;
+    }
+  </style>

@@ -3,14 +3,14 @@ from django.contrib.auth.models import User
 
 class Document(models.Model):
     STATUS_CHOICES = [
-        ('accepted', 'Accepted'),
-        ('rejected', 'Rejected'),
-        ('deleted', 'Deleted'),
+        ('accepted', 'утвержден'),
+        ('rejected', 'Не утвержден'),
+        ('deleted', 'удален'),
     ]
 
     title = models.CharField(max_length=200)
     file = models.FileField(upload_to='documents/')
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending')
+    status = models.CharField(max_length=15, choices=STATUS_CHOICES, default='на рассмотрении')
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

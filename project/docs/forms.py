@@ -12,3 +12,9 @@ class DocumentForm(forms.ModelForm):
                 'accept': '.pdf,.doc,.docx,.xls,.xlsx'
             })
         }
+        
+        
+class DocumentStatusForm(forms.ModelForm):
+    class Meta:
+        model = Document
+        fields = ['status']
