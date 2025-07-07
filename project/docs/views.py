@@ -6,7 +6,6 @@ from .models import Document
 from .forms import DocumentForm, DocumentStatusForm
 from django.http import FileResponse
 from django.utils import timezone
-from django.http import FileResponse
 
 
 def is_moderator(user):
@@ -62,18 +61,6 @@ def update_status(request, document_id):
         if form.is_valid():
             form.save()
     return redirect('document_list')
-
-# @login_required
-# @user_passes_test(lambda u: u.is_staff or is_moderator(u))
-# def update_status(request, document_id):
-#     document = get_object_or_404(Document, id=document_id)
-#     if request.method == 'POST':
-#         status = request.POST.get('status')
-#         if new_status in dict(Document.STATUS_CHOICES):
-#             document.status = new_status
-#             document.save()
-#             messages.success(request, 'Статус документа обновлен')
-#     return redirect('document_list')
 
 
 @login_required

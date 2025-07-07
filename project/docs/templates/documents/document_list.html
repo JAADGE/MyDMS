@@ -13,8 +13,7 @@
                     <li>
                         <p href="{{ document.file.url }}"> Название: {{ document.title }} Загружен: {{ document.uploaded_at }} Статус: {{ document.status }}</p>
                         <a href="{% url 'download_document' document.id %}">Скачать документ</a>
-                        <a href="{% url 'archive' document.id %}">В архив</a>
-                        {% if request.user.is_staff or request.user.moderator|yesno:"False,True" %}
+                        {% if request.user.is_staff or request.user.moderator%}
                             <form method="post" action="{% url 'update_status' document.id %}">
                                 {% csrf_token %}
                                 <select name="status">
@@ -27,6 +26,10 @@
                                 {% csrf_token %}
                                 <button type="submit">Удалить файл</button>
                             </form>
+                            <form method="post" action="{% url 'archive' document.id %}">
+                                {% csrf_token %}
+                                <button type="submit">В архив</button>
+                            </form>
                         {% endif %}
                     </li>
                 {% endfor %}
@@ -38,9 +41,11 @@
                 {% for doc in archived_docs %}
                 <li>
                     <p href="{{ document.file.url }}"> Название: {{ doc.title }} архивирован: {{ doc.archived_at|date:"d.m.Y" }}</p>
-                    <a href="{% url 'download_document' doc.id %}">Скачать</a>
-                    <a href="{% url 'restore' doc.id %}">Восстановить</a>
-                    <a href="{% url 'delete_document' doc.id %}">Удалить</a>
+                    <button type="submit"><a href="{% url 'download_document' doc.id %}">Скачать</a></button>
+                    {% if request.user.is_staff or request.user.moderator%}
+                        <button type="submit"><a href="{% url 'restore' doc.id %}">Восстановить</a></button>
+                        <button type="submit"><a href="{% url 'delete_document' doc.id %}">Удалить</a></button>
+                    {% endif %}
                 </li>
                 {% endfor %}
             </ul>
