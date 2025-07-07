@@ -12,7 +12,9 @@ path('create', views.create,name='create'),
 path('list', views.document_list, name='document_list'),
 path('update_status/<int:document_id>/', update_status, name='update_status'),
 path('delete_document/<int:document_id>/', delete_document, name='delete_document'),
-path('download/<int:document_id>/', download_document, name='download_document')
+path('download/<int:document_id>/', download_document, name='download_document'),
+path('archive/<int:document_id>/', views.archive_document, name='archive'),
+path('restore/<int:document_id>/', views.restore_document, name='restore'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

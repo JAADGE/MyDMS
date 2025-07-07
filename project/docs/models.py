@@ -6,12 +6,18 @@ class Document(models.Model):
     STATUS_CHOICES = [
         ('accepted', 'Утвердить'),
         ('rejected', 'Отклонить'),
+        ('rework', 'На доработке'),
+        ('reviev', 'на рассмотрении'),
+        ('archived', 'В архиве'),
     ]
 
     title = models.CharField(max_length=200)
     file = models.FileField(upload_to='documents/')
     status = models.CharField(max_length=15, choices=STATUS_CHOICES, default='на рассмотрении')
     uploaded_at = models.DateTimeField(auto_now_add=True)
+    uploaded_by = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
+    archived_at = models.DateTimeField(null=True, blank=True)
+
 
     def __str__(self):
         return self.title
@@ -21,12 +27,3 @@ class Document(models.Model):
         verbose_name_plural = "Документы"
 
     
-# class ApprovalRoute(models.Model):
-#     document = models.ForeignKey(Document, on_delete=models.CASCADE)
-#     approver = models.ForeignKey(User, on_delete=models.CASCADE)
-#     comment = models.TextField(blank=True)
-#     is_approved = models.BooleanField(default=False)
-#     date_approved = models.DateTimeField(null=True, blank=True)
-    
-#     def __str__(self):
-#         return self.title
