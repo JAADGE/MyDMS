@@ -7,7 +7,7 @@ class Document(models.Model):
         ('accepted', 'Утвердить'),
         ('rejected', 'Отклонить'),
         ('rework', 'На доработке'),
-        ('reviev', 'на рассмотрении'),
+        ('review', 'на рассмотрении'),
         ('archived', 'В архиве'),
     ]
 

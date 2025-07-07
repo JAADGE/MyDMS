@@ -40,6 +40,7 @@
                     <p href="{{ document.file.url }}"> Название: {{ doc.title }} архивирован: {{ doc.archived_at|date:"d.m.Y" }}</p>
                     <a href="{% url 'download_document' doc.id %}">Скачать</a>
                     <a href="{% url 'restore' doc.id %}">Восстановить</a>
+                    <a href="{% url 'delete_document' doc.id %}">Удалить</a>
                 </li>
                 {% endfor %}
             </ul>
