@@ -30,7 +30,6 @@ def document_list(request):
 
 
 @login_required
-@user_passes_test(lambda u: u.is_staff or is_moderator(u))
 def create(request):
     if request.method == 'POST':
         form = DocumentForm(request.POST, request.FILES)
