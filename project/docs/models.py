@@ -13,7 +13,7 @@ class Document(models.Model):
 
     title = models.CharField(max_length=200)
     file = models.FileField(upload_to='documents/')
-    status = models.CharField(max_length=15, choices=STATUS_CHOICES, default='на рассмотрении')
+    status = models.CharField(max_length=15, choices=STATUS_CHOICES, default='review')
     uploaded_at = models.DateTimeField(auto_now_add=True)
     uploaded_by = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
     archived_at = models.DateTimeField(null=True, blank=True)
